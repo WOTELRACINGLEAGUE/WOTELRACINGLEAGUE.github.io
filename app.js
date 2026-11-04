@@ -1,0 +1,5 @@
+function route(){const id=location.hash.slice(1)||'main';const valid=['main','results','standings','schedule','join'].includes(id)?id:'main';document.querySelectorAll('.page').forEach(p=>p.hidden=p.id!==valid);document.querySelectorAll('nav a').forEach(a=>{if(a.hash==='#'+valid)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});document.title=({main:'Home',results:'Race Results',standings:'Points Standings',schedule:'Season 33 Schedule',join:'How to Join WOTEL'})[valid]+' | WOTEL';window.scrollTo(0,0)}window.addEventListener('hashchange',route);document.getElementById('year').textContent=new Date().getFullYear();route();
+
+const divisionPicker=document.getElementById('result-division');divisionPicker.addEventListener('change',()=>{document.querySelectorAll('.division-results').forEach(section=>section.hidden=section.id!==divisionPicker.value)});
+
+for(const [id,cls] of [["points-division","points-division"],["schedule-division","schedule-division"]]){const select=document.getElementById(id);select.addEventListener("change",()=>document.querySelectorAll("."+cls).forEach(el=>el.hidden=el.dataset.division!==select.value));}
