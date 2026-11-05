@@ -13,7 +13,7 @@ function syncBroadcast(page){
  host.append(frame);
  document.getElementById('broadcast-status').textContent='Channel live player · Availability is shown in the YouTube player below.';
 }
-function route(){const id=location.hash.slice(1)||'main';const valid=['main','results','standings','schedule','broadcast','join'].includes(id)?id:'main';document.querySelectorAll('.page').forEach(p=>p.hidden=p.id!==valid);document.querySelectorAll('nav a').forEach(a=>{if(a.hash==='#'+valid)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});document.title=({main:'Home',results:'Race Results',standings:'Points Standings',schedule:'Season 33 Schedule',broadcast:'Live Broadcast',join:'How to Join WOTEL'})[valid]+' | WOTEL';syncBroadcast(valid);window.scrollTo(0,0)}window.addEventListener('hashchange',route);document.getElementById('year').textContent=new Date().getFullYear();route();
+function route(){const id=location.hash.slice(1)||'main';const valid=['main','results','standings','schedule','broadcast','past-races','join'].includes(id)?id:'main';document.querySelectorAll('.page').forEach(p=>p.hidden=p.id!==valid);document.querySelectorAll('nav a').forEach(a=>{if(a.hash==='#'+valid)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});document.title=({main:'Home',results:'Race Results',standings:'Points Standings',schedule:'Season 33 Schedule',broadcast:'Live Broadcast','past-races':'Past WOTEL Races',join:'How to Join WOTEL'})[valid]+' | WOTEL';syncBroadcast(valid);window.scrollTo(0,0)}window.addEventListener('hashchange',route);document.getElementById('year').textContent=new Date().getFullYear();route();
 
 const divisionPicker=document.getElementById('result-division');divisionPicker.addEventListener('change',()=>{document.querySelectorAll('.division-results').forEach(section=>section.hidden=section.id!==divisionPicker.value)});
 
@@ -23,3 +23,5 @@ document.getElementById('refresh-broadcast').addEventListener('click',()=>{
  document.getElementById('broadcast-player').replaceChildren();
  syncBroadcast('broadcast');
 });
+
+document.querySelectorAll('[data-race-results]').forEach(link=>link.addEventListener('click',()=>{divisionPicker.value=link.dataset.raceResults;divisionPicker.dispatchEvent(new Event('change'));}));
